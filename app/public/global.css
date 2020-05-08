@@ -1,0 +1,14 @@
+
+
+.done span {
+	text-decoration: line-through;
+}
+
+.no-border {
+    border: 0;
+	box-shadow: none; 
+}
+
+.btn {
+	border-radius: 12px !important;
+}
