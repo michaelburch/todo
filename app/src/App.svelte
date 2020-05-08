@@ -1,17 +1,19 @@
 <script>
 	import { fly } from 'svelte/transition';
-	import Icon from 'fa-svelte'
 	import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash'
 	import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+	import Icon from 'fa-svelte'
 	import Navbar from './Navbar.svelte';
 	let itemName = "";
 
 	let items = [];
 	let deleteIcon = faTrash;
 	let addIcon = faPlus;
-    async function getItems() {
+	const apiUrl = process.env.apiUrl
+	
+	async function getItems() {
 
-        let response = await fetch(`http://localhost:5003/api/todos/`);
+        let response = await fetch(`${apiUrl}/todos/`);
         items = await response.json();
         return items;
     }
@@ -20,7 +22,7 @@
 		
 		let todo = items.filter(t => t.id === id)[0];
 		todo.isComplete = !todo.isComplete 
-		await fetch(`http://localhost:5003/api/todos/${todo.id}`, {
+		await fetch(`${apiUrl}/todos/${todo.id}`, {
 			method: 'PUT',
 			body: JSON.stringify(todo)
 		})
@@ -28,7 +30,7 @@
 	}
 
 	async function deleteItem(id) {
-		await fetch(`http://localhost:5003/api/todos/${id}`, {
+		await fetch(`${apiUrl}/todos/${id}`, {
 			method: 'DELETE'
 		})
 		items = items.filter(t => t.id != id);
@@ -42,7 +44,7 @@
 			name: itemName,
 			isComplete: false
 			}
-			await fetch(`http://localhost:5003/api/todos/`, {
+			await fetch(`${apiUrl}/todos/`, {
 				method: 'POST',
 				body: JSON.stringify(newItem)
 			})
@@ -51,7 +53,7 @@
 		itemName = '';
 		
 	}
-
+	console.log(apiUrl);
 	items = getItems();
 
 </script>

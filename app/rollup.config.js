@@ -3,8 +3,14 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
+let apiUrl = "http://localhost:5003/api";
+if (process.env.API_URL)
+{
+	apiUrl = process.env.API_URL;
+}
 
 export default {
 	input: 'src/main.js',
@@ -15,6 +21,14 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		replace({
+			// 2 level deep object should be stringify
+			process: JSON.stringify({
+			  env: {
+				apiUrl: apiUrl,
+			  }
+			}),
+		  }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -24,6 +38,7 @@ export default {
 				css.write('public/build/bundle.css');
 			}
 		}),
+		
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
