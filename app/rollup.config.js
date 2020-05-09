@@ -6,6 +6,9 @@ import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 
 const production = !process.env.ROLLUP_WATCH;
+// Default API URL
+// allow override with API_URL environment variable
+// value of this will be replaced at build time only
 let apiUrl = "http://localhost:5003/api";
 if (process.env.API_URL)
 {

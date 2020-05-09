@@ -1,110 +1,166 @@
 <script>
-	import { fly } from 'svelte/transition';
-	import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash'
-	import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
-	import Icon from 'fa-svelte'
-	import Navbar from './Navbar.svelte';
-	let itemName = "";
+  import { fly } from "svelte/transition";
+  import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+  import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+  import Icon from "fa-svelte";
+  import Navbar from "./Navbar.svelte";
+  // Define icons for adding and deleting
+  let deleteIcon = faTrash;
+  let addIcon = faPlus;
+  let apiError;
 
-	let items = [];
-	let deleteIcon = faTrash;
-	let addIcon = faPlus;
-	const apiUrl = process.env.apiUrl
-	
-	async function getItems() {
+  // Declare variable to hold name of new item
+  let itemName = "";
 
-        let response = await fetch(`${apiUrl}/todos/`);
-        items = await response.json();
-        return items;
+  // Start with an empty array of todo items
+  let items = [];
+
+  // Define location of backend API (value is replaced at build time)
+  const apiUrl = process.env.apiUrl;
+
+  // Get all todo items from API
+  async function getItems() {
+    let response = await fetch(`${apiUrl}/todos/`);
+    items = await response.json();
+    return items;
+  }
+
+  // Toggle 'isComplete' property of todo item
+  async function toggleComplete(id) {
+    apiError = "";
+    let todo = items.filter(t => t.id === id)[0];
+    todo.isComplete = !todo.isComplete;
+    try {
+      await fetch(`${apiUrl}/todos/${todo.id}`, {
+        method: "PUT",
+        body: JSON.stringify(todo)
+      });
+    } catch (error) {
+      apiError = `Failed to update item, ${error.message}`;
     }
 
-	async function toggleComplete(id) {
-		
-		let todo = items.filter(t => t.id === id)[0];
-		todo.isComplete = !todo.isComplete 
-		await fetch(`${apiUrl}/todos/${todo.id}`, {
-			method: 'PUT',
-			body: JSON.stringify(todo)
-		})
-		items = items;
-	}
+    items = items;
+  }
 
-	async function deleteItem(id) {
-		await fetch(`${apiUrl}/todos/${id}`, {
-			method: 'DELETE'
-		})
-		items = items.filter(t => t.id != id);
-	}
-	
-	async function addItem() {
-		
-		if (itemName != '')
-		{
-			let newItem = {
-			name: itemName,
-			isComplete: false
-			}
-			await fetch(`${apiUrl}/todos/`, {
-				method: 'POST',
-				body: JSON.stringify(newItem)
-			})
-			items = await getItems();
-		}
-		itemName = '';
-		
-	}
-	console.log(apiUrl);
-	items = getItems();
+  // Delete item by id
+  async function deleteItem(id) {
+    apiError = "";
+    try {
+      await fetch(`${apiUrl}/todos/${id}`, {
+        method: "DELETE"
+      });
+      items = items.filter(t => t.id != id);
+    } catch (error) {
+      apiError = `Failed to delete item, ${error.message}`;
+    }
+  }
 
+  // Add new item
+  async function addItem() {
+    if (itemName != "") {
+      try {
+        let newItem = {
+          name: itemName,
+          isComplete: false
+        };
+        await fetch(`${apiUrl}/todos/`, {
+          method: "POST",
+          body: JSON.stringify(newItem)
+        });
+        items = await getItems();
+      } catch (error) {
+        apiError = `Failed to add item, ${error.message}`;
+      }
+    }
+    itemName = "";
+  }
+  // Assign value to force update
+  items = getItems();
 </script>
-<Navbar/>
+
+<Navbar />
 <div class="container mt-5">
-	<div class="row">
-		<div class="col-md"></div>
-		<div class="col-md-8 text-center">
-			<h1 class="display-4">Todo</h1>
-	
-			{#await items}
+  <div class="row">
+    <div class="col-md" />
+    <div class="col-md-9 text-center">
+      <h1 class="display-4">Todo</h1>
+      <!--Display errors at top of page-->
+      {#if apiError}
+        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card-body">
+            <h5 class="card-title" style="color:red">{apiError}</h5>
+          </div>
+        </div>
+      {/if}
+      <!--Display animation while waiting on items to load-->
+      {#await items}
 
-			<div class="spinner-border mt-5" role="status">
-    			<span class="sr-only">Loading...</span>
-  			</div>
+        <div class="spinner-border mt-5" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
 
-			{:then todos}
-					<div class="card mt-5" transition:fly="{{ y: 150, duration: 300 }}">
-				<div class="card-body " >
-				<!--Input form for adding new items-->
-				<form class="form" on:submit|preventDefault={addItem}>
-        			<div class="row form-group">
-					<div class="col-sm-10"><h5 class="card-title"><input class="form-control-lg no-border" type="text" bind:value={itemName} autofocus></h5></div>
-					<div class="col-sm-2"><button type="submit" class="btn btn-success" ><Icon icon={faPlus}></Icon></button></div>
-				</div>
-				</form>
-    		</div>
-				
-			</div>
+      {:then todos}
+        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card-body ">
+            <!--Input form for adding new items-->
+            <form class="form" on:submit|preventDefault={addItem}>
+              <div class="row form-group">
+                <div class="col-sm-3" />
+                <div class="col-sm-6">
+                  <h5 class="card-title">
+                    <input
+                      class="input"
+                      type="text"
+                      bind:value={itemName}
+                      autofocus
+                      placeholder="Add a new todo" />
+                  </h5>
+                </div>
+                <div class="col-sm-3">
+                  <button type="submit" class="btn btn-success float-right">
+                    <Icon icon={faPlus} />
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
 
-			{#each todos as todo (todo.id)}
-			<div class="card mt-5" transition:fly="{{ y: 150, duration: 300 }}">
-				<div class="card-body " >
-        			<div class="row">
-					<div class="col-sm-10" on:click={toggleComplete(todo.id)}><h5 class="card-title {todo.isComplete ? 'done' : ''}"><span>{todo.name}</span></h5></div>
-					<div class="col-sm-2"><button type="button" class="btn btn-danger" on:click={deleteItem(todo.id)}><Icon icon={faTrash}></Icon></button></div>
-					</div>
-    			</div>
-				
-			</div>
-			{/each}	
-			{:catch error}
+        </div>
+        <!--List Todo Items-->
+        {#each todos as todo (todo.id)}
+          <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-sm-3" />
+                <div class="col-sm-6" on:click={toggleComplete(todo.id)}>
+                  <!--Add class to strikethru text if item is compelte-->
+                  <h5 class="card-title {todo.isComplete ? 'completed' : ''}">
+                    <span>{todo.name}</span>
+                  </h5>
+                </div>
+                <div class="col-sm-3">
+                  <button
+                    type="button"
+                    class="btn btn-danger float-right"
+                    on:click={deleteItem(todo.id)}>
+                    <Icon icon={faTrash} />
+                  </button>
+                </div>
+              </div>
+            </div>
 
-			<div class="card mt-5" transition:fly="{{ y: 150, duration: 300 }}">
-    			<div class="card-body" >
-        			<h5 class="card-title">{error.message}</h5>
-    			</div>
-			</div>
-			
-			{/await}
-		</div>
-		<div class="col-md"></div>
-	</div>
+          </div>
+        {/each}
+      {:catch error}
+
+        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card-body">
+            <h5 class="card-title" style="color:red">{error.message}</h5>
+          </div>
+        </div>
+
+      {/await}
+    </div>
+    <div class="col-md" />
+  </div>
 </div>

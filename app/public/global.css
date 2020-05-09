@@ -1,14 +1,20 @@
-
-
-.done span {
+/* Class for completed items */
+.completed span {
 	text-decoration: line-through;
 }
 
-.no-border {
-    border: 0;
-	box-shadow: none; 
-}
-
+/* Round edges of buttons */
 .btn {
 	border-radius: 12px !important;
+}
+
+/* Input box style */
+.input {
+	height:1em; 
+	width:100%; 
+	margin-top: 1em; 
+	margin: 0.3em; 
+	border: 0;
+	text-align:center; 
+	vertical-align: middle;
 }
