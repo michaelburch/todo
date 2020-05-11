@@ -14,6 +14,8 @@ The app uses a very minimal todo item with just three properties:
 }
 ```
 
+Clicking on a todo item will mark it complete and cross it off of the list. Items can be removed by clicking on the delete button, and added using the input form at the top of the page.
+
 ### API Requirements
 A REST API is required, and can also be found in this repo. The following methods are used:
 
