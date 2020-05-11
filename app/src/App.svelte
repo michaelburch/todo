@@ -79,7 +79,7 @@
 </script>
 
 <Navbar />
-<div class="container mt-5">
+<div class="container mt-4">
   <div class="row">
     <div class="col-md" />
     <div class="col-md-9 text-center">
@@ -88,7 +88,7 @@
       <!--Display errors at top of page-->
       {#if apiError}
         <div
-          class="card mt-5 rounded-pill"
+          class="card mt-4 rounded-pill"
           transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body">
             <h5 class="card-title" style="color:red">{apiError}</h5>
@@ -99,14 +99,14 @@
       <!--Display animation while waiting on items to load-->
       {#await items}
 
-        <div class="spinner-border mt-5" role="status">
+        <div class="spinner-border mt-4" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       
       {:then todos}
         <div class="row">
         <div
-          class="card mt-5 rounded-pill w-100"
+          class="card mt-4 rounded-pill w-100"
           transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body ">
             <!--Input form for adding new items-->
@@ -140,7 +140,7 @@
         {#each todos as todo (todo.id)}
           <div class="row">
           <div
-            class="card mt-5 rounded-pill w-100 h-100"
+            class="card mt-4 rounded-pill w-100 h-100"
             transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body ">
               <div class="row">
@@ -167,7 +167,7 @@
         {/each}
       {:catch error}
 
-        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+        <div class="card mt-4" transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body">
             <h5 class="card-title" style="color:red">{error.message}</h5>
           </div>
