@@ -3,11 +3,6 @@
 	text-decoration: line-through;
 }
 
-/* Round edges of buttons */
-.btn {
-	border-radius: 12px !important;
-}
-
 /* Input box style */
 .input {
 	height:1em; 

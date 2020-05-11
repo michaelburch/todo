@@ -86,7 +86,7 @@
       <h1 class="display-4">Todo</h1>
       <!--Display errors at top of page-->
       {#if apiError}
-        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+        <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body">
             <h5 class="card-title" style="color:red">{apiError}</h5>
           </div>
@@ -100,7 +100,7 @@
         </div>
 
       {:then todos}
-        <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+        <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body ">
             <!--Input form for adding new items-->
             <form class="form" on:submit|preventDefault={addItem}>
@@ -117,7 +117,7 @@
                   </h5>
                 </div>
                 <div class="col-sm-3">
-                  <button type="submit" class="btn btn-success float-right">
+                  <button type="submit" class="btn btn-success float-right rounded-circle">
                     <Icon icon={faPlus} />
                   </button>
                 </div>
@@ -128,7 +128,7 @@
         </div>
         <!--List Todo Items-->
         {#each todos as todo (todo.id)}
-          <div class="card mt-5" transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body ">
               <div class="row">
                 <div class="col-sm-3" />
@@ -141,7 +141,7 @@
                 <div class="col-sm-3">
                   <button
                     type="button"
-                    class="btn btn-danger float-right"
+                    class="btn btn-danger float-right rounded-circle"
                     on:click={deleteItem(todo.id)}>
                     <Icon icon={faTrash} />
                   </button>
