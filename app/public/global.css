@@ -18,3 +18,29 @@
 	text-align:center; 
 	vertical-align: middle;
 }
+
+input:focus{
+    outline: none;
+}
+
+/* Button style */
+.btn-success, .btn-danger {
+	background-color: #3f75a2 !important;
+	border-color: #3f75a2 !important;
+	color: #ddd;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	body {
+	  color: #ddd;
+	  background-color: #646464;
+	}
+	.card, .input, .bg-light {
+		background-color: #3c3b3b !important;
+		color: #ddd;
+	}
+	::placeholder {
+		color: #ddd;
+	}
+}
