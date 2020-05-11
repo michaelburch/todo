@@ -13,10 +13,8 @@ namespace todo
         {
             var optionsBuilder = new DbContextOptionsBuilder<TodoDbContext>();
             var dbCstr = System.Environment.GetEnvironmentVariable("DB_CSTR") ?? string.Empty;
-            
+
             optionsBuilder.UseSqlServer(dbCstr);
-                
-            
 
             return new TodoDbContext(optionsBuilder.Options);
         }

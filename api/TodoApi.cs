@@ -1,4 +1,4 @@
-﻿﻿﻿using System;
+﻿﻿using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -13,8 +13,8 @@ namespace todo
     {
         private readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
-             PropertyNameCaseInsensitive = true,
-             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
         public async Task GetAllAsync(TodoDbContext db, HttpContext context)
@@ -54,7 +54,7 @@ namespace todo
             {
                 await db.TodoItems.AddAsync(todo);
             }
-            
+
             await db.SaveChangesAsync();
         }
 
@@ -65,12 +65,12 @@ namespace todo
                 context.Response.StatusCode = 400;
                 return;
             }
-            
+
             var todo = await context.Request.ReadJsonAsync<TodoItem>(_options);
             todo.Id = id;
 
             db.TodoItems.Update(todo);
-                        
+
             await db.SaveChangesAsync();
         }
 

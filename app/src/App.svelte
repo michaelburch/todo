@@ -84,27 +84,34 @@
     <div class="col-md" />
     <div class="col-md-9 text-center">
       <h1 class="display-4">Todo</h1>
+      <div class="row">
       <!--Display errors at top of page-->
       {#if apiError}
-        <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
+        <div
+          class="card mt-5 rounded-pill"
+          transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body">
             <h5 class="card-title" style="color:red">{apiError}</h5>
           </div>
         </div>
       {/if}
+      </div>
       <!--Display animation while waiting on items to load-->
       {#await items}
 
         <div class="spinner-border mt-5" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-
+      
       {:then todos}
-        <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
+        <div class="row">
+        <div
+          class="card mt-5 rounded-pill w-100"
+          transition:fly={{ y: 150, duration: 300 }}>
           <div class="card-body ">
             <!--Input form for adding new items-->
             <form class="form" on:submit|preventDefault={addItem}>
-              <div class="row form-group">
+              <div class="row ">
                 <div class="col-sm-3" />
                 <div class="col-sm-6">
                   <h5 class="card-title">
@@ -117,7 +124,9 @@
                   </h5>
                 </div>
                 <div class="col-sm-3">
-                  <button type="submit" class="btn btn-success float-right rounded-circle">
+                  <button
+                    type="submit"
+                    class="btn btn-success float-right rounded-circle">
                     <Icon icon={faPlus} />
                   </button>
                 </div>
@@ -126,9 +135,13 @@
           </div>
 
         </div>
+        </div>
         <!--List Todo Items-->
         {#each todos as todo (todo.id)}
-          <div class="card mt-5 rounded-pill" transition:fly={{ y: 150, duration: 300 }}>
+          <div class="row">
+          <div
+            class="card mt-5 rounded-pill w-100 h-100"
+            transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body ">
               <div class="row">
                 <div class="col-sm-3" />
@@ -149,6 +162,7 @@
               </div>
             </div>
 
+          </div>
           </div>
         {/each}
       {:catch error}
