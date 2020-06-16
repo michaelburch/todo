@@ -1,5 +1,8 @@
 .body {
-  font-size: 16px;
+  font-size: 16px !important;
+}
+input[type="text"] {
+  font-size: inherit;
 }
 /* Class for completed items */
 .completed span {
@@ -37,6 +40,16 @@ input:focus {
 .card-body {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  body {
+    font-size: 16px;
+  }
+  .btn-success,
+  .btn-danger {
+    color: #fff;
+  }
 }
 
 /* Dark theme */
