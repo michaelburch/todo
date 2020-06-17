@@ -79,15 +79,15 @@
 </script>
 
 <Navbar />
-<div class="container mt-4 justify-content-center">
-  <div class="row">
+<div class="container mt-4 justify-content-center pt-4">
+
     <div class="col text-center">
       <h1 class="display-4">Todo</h1>
       <div class="row">
         <!--Display errors at top of page-->
         {#if apiError}
           <div
-            class="card mt-4 rounded-pill"
+            class="card mt-2 rounded-pill"
             transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body">
               <h5 class="card-title" style="color:red">{apiError}</h5>
@@ -98,14 +98,14 @@
       <!--Display animation while waiting on items to load-->
       {#await items}
 
-        <div class="spinner-border mt-4" role="status">
+        <div class="spinner-border mt-2" role="status">
           <span class="sr-only">Loading...</span>
         </div>
 
       {:then todos}
         <div class="row">
           <div
-            class="card mt-4 rounded-pill w-100"
+            class="card mt-2 rounded-pill w-100"
             transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body ">
               <!--Input form for adding new items-->
@@ -167,5 +167,5 @@
         </div>
       {/await}
     </div>
-  </div>
+  
 </div>

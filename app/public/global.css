@@ -1,6 +1,9 @@
 .body {
   font-size: 16px !important;
 }
+.navbar {
+  padding:0;
+}
 input[type="text"] {
   font-size: inherit;
 }
@@ -61,6 +64,7 @@ input:focus {
   }
   .card,
   .input,
+  .icon,
   .bg-light {
     background-color: #3c3b3b !important;
     color: #ddd !important;
