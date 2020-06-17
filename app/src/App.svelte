@@ -81,91 +81,91 @@
 <Navbar />
 <div class="container mt-4 justify-content-center pt-4">
 
-    <div class="col text-center">
-      <h1 class="display-4">Todo</h1>
-      <div class="row">
-        <!--Display errors at top of page-->
-        {#if apiError}
-          <div
-            class="card mt-2 rounded-pill"
-            transition:fly={{ y: 150, duration: 300 }}>
-            <div class="card-body">
-              <h5 class="card-title" style="color:red">{apiError}</h5>
-            </div>
+  <div class="col text-center">
+    <h1 class="display-4 mr-4">Todo</h1>
+    <div class="row">
+      <!--Display errors at top of page-->
+      {#if apiError}
+        <div
+          class="card mt-2 rounded-pill"
+          transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card-body">
+            <h5 class="card-title" style="color:red">{apiError}</h5>
           </div>
-        {/if}
-      </div>
-      <!--Display animation while waiting on items to load-->
-      {#await items}
-
-        <div class="spinner-border mt-2" role="status">
-          <span class="sr-only">Loading...</span>
         </div>
+      {/if}
+    </div>
+    <!--Display animation while waiting on items to load-->
+    {#await items}
 
-      {:then todos}
+      <div class="spinner-border mt-2" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+
+    {:then todos}
+      <div class="row">
+        <div
+          class="card mt-2 rounded-pill w-100"
+          transition:fly={{ y: 150, duration: 300 }}>
+          <div class="card-body ">
+            <!--Input form for adding new items-->
+            <form class="form" on:submit|preventDefault={addItem}>
+              <div class="row ">
+                <div class="col">
+                  <input
+                    class="input"
+                    type="text"
+                    bind:value={itemName}
+                    autofocus
+                    placeholder="Add a new todo" />
+                </div>
+                <div class="col-xs">
+                  <button
+                    type="submit"
+                    class="btn btn-success float-right rounded-circle">
+                    <Icon icon={faPlus} />
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <!--List Todo Items-->
+      {#each todos as todo (todo.id)}
         <div class="row">
           <div
-            class="card mt-2 rounded-pill w-100"
+            class="card mt-4 rounded-pill w-100 h-100"
             transition:fly={{ y: 150, duration: 300 }}>
             <div class="card-body ">
-              <!--Input form for adding new items-->
-              <form class="form" on:submit|preventDefault={addItem}>
-                <div class="row ">
-                  <div class="col">
-                    <input
-                      class="input"
-                      type="text"
-                      bind:value={itemName}
-                      autofocus
-                      placeholder="Add a new todo" />
-                  </div>
-                  <div class="col-xs">
-                    <button
-                      type="submit"
-                      class="btn btn-success float-right rounded-circle">
-                      <Icon icon={faPlus} />
-                    </button>
-                  </div>
+              <div class="row">
+                <div class="col" on:click={toggleComplete(todo.id)}>
+                  <!--Add class to strikethru text if item is compelte-->
+                  <h5 class="card-title {todo.isComplete ? 'completed' : ''}">
+                    <span>{todo.name}</span>
+                  </h5>
                 </div>
-              </form>
-            </div>
-
-          </div>
-        </div>
-        <!--List Todo Items-->
-        {#each todos as todo (todo.id)}
-          <div class="row">
-            <div
-              class="card mt-4 rounded-pill w-100 h-100"
-              transition:fly={{ y: 150, duration: 300 }}>
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col" on:click={toggleComplete(todo.id)}>
-                    <!--Add class to strikethru text if item is compelte-->
-                    <h5 class="card-title {todo.isComplete ? 'completed' : ''}">
-                      <span>{todo.name}</span>
-                    </h5>
-                  </div>
-                  <div class="col-xs">
-                    <button
-                      type="button"
-                      class="btn btn-danger float-right rounded-circle"
-                      on:click={deleteItem(todo.id)}>
-                      <Icon icon={faTrash} />
-                    </button>
-                  </div>
+                <div class="col-xs">
+                  <button
+                    type="button"
+                    class="btn btn-danger float-right rounded-circle"
+                    on:click={deleteItem(todo.id)}>
+                    <Icon icon={faTrash} />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        {/each}
-      {:catch error}
-        <div class="card mt-4" transition:fly={{ y: 150, duration: 300 }}>
-          <div class="card-body">
-            <h5 class="card-title" style="color:red">{error.message}</h5>
-          </div>
         </div>
-      {/await}
-    </div>
-  
+      {/each}
+    {:catch error}
+      <div class="card mt-4" transition:fly={{ y: 150, duration: 300 }}>
+        <div class="card-body">
+          <h5 class="card-title" style="color:red">{error.message}</h5>
+        </div>
+      </div>
+    {/await}
+  </div>
+
 </div>
