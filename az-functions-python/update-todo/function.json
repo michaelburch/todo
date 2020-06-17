@@ -1,0 +1,41 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "put"
+      ],
+      "route": "todos/{itemId}"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outdoc",
+      "databaseName": "%DB_NAME%",
+      "collectionName": "%COLLECTION_NAME%",
+      "Id":"{itemId}",
+      "PartitionKey": "{itemId}",
+      "connectionStringSetting": "DB_CSTR"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "in",
+      "name": "todoItems",
+      "databaseName": "%DB_NAME%",
+      "collectionName": "%COLLECTION_NAME%",
+      "Id": "{itemId}",
+      "PartitionKey": "{itemId}",
+      "connectionStringSetting": "DB_CSTR",
+      "createIfNotExists": "true"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+}
