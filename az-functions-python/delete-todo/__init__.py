@@ -10,6 +10,8 @@ def main(req: func.HttpRequest, todoItems: func.DocumentList ) -> func.HttpRespo
     collection_name = os.environ['COLLECTION_NAME']
     # Read itemId from route param
     itemId = req.route_params.get('itemId')
+    # Read tenantId from route param
+    tenantId = req.route_params.get('tenantId')
     # If item doesn't exist, return error
     if not todoItems:
         return func.HttpResponse(
@@ -21,7 +23,7 @@ def main(req: func.HttpRequest, todoItems: func.DocumentList ) -> func.HttpRespo
             client = CosmosClient.from_connection_string(os.environ['DB_CSTR'])
             database = client.get_database_client(database_name)
             container = database.get_container_client(collection_name)
-            container.delete_item(itemId,itemId)
+            container.delete_item(itemId,tenantId)
             return func.HttpResponse(status_code=200)
         except Exception as inst:
             return func.HttpResponse(

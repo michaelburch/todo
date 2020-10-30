@@ -9,7 +9,7 @@
       "methods": [
         "delete"
       ],
-      "route": "todos/{itemId}"
+      "route": "{tenantId}/todos/{itemId}"
     },
     {
       "type": "cosmosDB",
@@ -18,7 +18,7 @@
       "databaseName": "%DB_NAME%",
       "collectionName": "%COLLECTION_NAME%",
       "Id": "{itemId}",
-      "PartitionKey": "{itemId}",
+      "PartitionKey": "{tenantId}",
       "connectionStringSetting": "DB_CSTR",
       "createIfNotExists": "true"
     },

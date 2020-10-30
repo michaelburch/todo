@@ -12,16 +12,21 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         # Read client settings from environment
         database_name = os.environ['DB_NAME']
         collection_name = os.environ['COLLECTION_NAME']
+        # Read tenantId from route param
+        tenantId = req.route_params.get('tenantId')
+        logging.info(f'tenant {tenantId} ')
         # Create an empty documentlist
         todos = func.DocumentList()
         # Create database and collection if not already existing
         client = CosmosClient.from_connection_string(os.environ['DB_CSTR'])
         client.create_database_if_not_exists(database_name,False,0)
         database = client.get_database_client(database_name)
-        database.create_container_if_not_exists(collection_name,PartitionKey("/id"))
+        database.create_container_if_not_exists(collection_name,PartitionKey("/tenantId"))
         # Read items from collection
         container = database.get_container_client(collection_name)
-        items = container.read_all_items()
+        query = f"SELECT * FROM c WHERE c.tenantId = '{tenantId}'"
+        items = container.query_items(query=query)
+
         for item in items:
             # Deserialize items to todos, dropping system properties
             try:
@@ -36,6 +41,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             )
     except Exception as inst:
         return func.HttpResponse(
-                body=inst,
+                body=f"error {inst}",
                 status_code=500
             )

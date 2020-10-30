@@ -5,10 +5,13 @@ import azure.functions as func
 
 def main(req: func.HttpRequest, doc: func.Out[func.Document]) -> func.HttpResponse:
     logging.info('Creating new todo item')
+    # Read tenantId from route param
+    tenantId = req.route_params.get('tenantId')
     try:
         # Create item using JSON from request body
         req_body = req.get_json()
         todoItem = TodoItem.from_json(req_body)
+        todoItem["tenantId"] = f'{tenantId}'
         # Create item in database
         doc.set(func.Document.from_dict(todoItem))
         logging.info(f' Created item {todoItem["id"]}')

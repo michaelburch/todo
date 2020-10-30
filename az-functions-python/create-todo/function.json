@@ -9,7 +9,7 @@
       "methods": [
         "post"
       ],
-      "route": "todos/"
+      "route": "{tenantId}/todos/"
     },
     {
       "type": "cosmosDB",
@@ -17,7 +17,8 @@
       "name": "doc",
       "databaseName": "%DB_NAME%",
       "collectionName": "%COLLECTION_NAME%",
-      "connectionStringSetting": "DB_CSTR"
+      "connectionStringSetting": "DB_CSTR",
+      "PartitionKey": "{tenantId}"
     },
     {
       "type": "http",
