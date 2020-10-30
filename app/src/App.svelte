@@ -4,10 +4,54 @@
   import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
   import Icon from "fa-svelte";
   import Navbar from "./Navbar.svelte";
+  import { uuid } from "uuidv4";
   // Define icons for adding and deleting
   let deleteIcon = faTrash;
   let addIcon = faPlus;
   let apiError;
+  let uniqueId;
+
+  // Define location of backend API (value is replaced at build time)
+  const apiUrl = process.env.apiUrl;
+
+  function getCookie() {
+    var name = location.hostname + "=";
+    var ca = document.cookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function setCookie() {
+    //Read current cookie value
+    uniqueId = getCookie();
+    if (uniqueId == "") {
+      // if blank, generate new id
+      uniqueId = uuid();
+    }
+    // Set or renew cookie for 1 year
+    var d = new Date();
+    d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie =
+      location.hostname +
+      "=" +
+      uniqueId +
+      ";" +
+      expires +
+      ";sameSite=strict;secure;path=/";
+  }
+
+  setCookie();
+
+  
 
   // Declare variable to hold name of new item
   let itemName = "";
@@ -15,12 +59,9 @@
   // Start with an empty array of todo items
   let items = [];
 
-  // Define location of backend API (value is replaced at build time)
-  const apiUrl = process.env.apiUrl;
-
   // Get all todo items from API
   async function getItems() {
-    let response = await fetch(`${apiUrl}/todos/`);
+    let response = await fetch(`${apiUrl}/${uniqueId}/todos`);
     items = await response.json();
     return items;
   }
@@ -31,7 +72,7 @@
     let todo = items.filter(t => t.id === id)[0];
     todo.isComplete = !todo.isComplete;
     try {
-      await fetch(`${apiUrl}/todos/${todo.id}`, {
+      await fetch(`${apiUrl}/${uniqueId}/todos/${todo.id}`, {
         method: "PUT",
         body: JSON.stringify(todo)
       });
@@ -46,7 +87,7 @@
   async function deleteItem(id) {
     apiError = "";
     try {
-      await fetch(`${apiUrl}/todos/${id}`, {
+      await fetch(`${apiUrl}/${uniqueId}/todos/${id}`, {
         method: "DELETE"
       });
       items = items.filter(t => t.id != id);
@@ -63,7 +104,7 @@
           name: itemName,
           isComplete: false
         };
-        await fetch(`${apiUrl}/todos/`, {
+        await fetch(`${apiUrl}/${uniqueId}/todos/`, {
           method: "POST",
           body: JSON.stringify(newItem)
         });
