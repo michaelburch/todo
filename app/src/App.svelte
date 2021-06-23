@@ -4,7 +4,7 @@
   import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
   import Icon from "fa-svelte";
   import Navbar from "./Navbar.svelte";
-  import { uuid } from "uuidv4";
+  import { v4 as uuid } from "uuid";
   // Define icons for adding and deleting
   let deleteIcon = faTrash;
   let addIcon = faPlus;
@@ -51,8 +51,6 @@
 
   setCookie();
 
-  
-
   // Declare variable to hold name of new item
   let itemName = "";
 
@@ -69,12 +67,15 @@
   // Toggle 'isComplete' property of todo item
   async function toggleComplete(id) {
     apiError = "";
-    let todo = items.filter(t => t.id === id)[0];
+    let todo = items.filter((t) => t.id === id)[0];
     todo.isComplete = !todo.isComplete;
     try {
       await fetch(`${apiUrl}/${uniqueId}/todos/${todo.id}`, {
         method: "PUT",
-        body: JSON.stringify(todo)
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(todo),
       });
     } catch (error) {
       apiError = `Failed to update item, ${error.message}`;
@@ -88,9 +89,9 @@
     apiError = "";
     try {
       await fetch(`${apiUrl}/${uniqueId}/todos/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
-      items = items.filter(t => t.id != id);
+      items = items.filter((t) => t.id != id);
     } catch (error) {
       apiError = `Failed to delete item, ${error.message}`;
     }
@@ -102,11 +103,14 @@
       try {
         let newItem = {
           name: itemName,
-          isComplete: false
+          isComplete: false,
         };
         await fetch(`${apiUrl}/${uniqueId}/todos/`, {
           method: "POST",
-          body: JSON.stringify(newItem)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newItem),
         });
         items = await getItems();
       } catch (error) {
@@ -121,7 +125,6 @@
 
 <Navbar />
 <div class="container mt-4 justify-content-center pt-4">
-
   <div class="col text-center">
     <h1 class="display-4 mr-4">Todo</h1>
     <div class="row">
@@ -129,7 +132,8 @@
       {#if apiError}
         <div
           class="card mt-2 rounded-pill"
-          transition:fly={{ y: 150, duration: 300 }}>
+          transition:fly={{ y: 150, duration: 300 }}
+        >
           <div class="card-body">
             <h5 class="card-title" style="color:red">{apiError}</h5>
           </div>
@@ -138,16 +142,15 @@
     </div>
     <!--Display animation while waiting on items to load-->
     {#await items}
-
       <div class="spinner-border mt-2" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-
     {:then todos}
       <div class="row">
         <div
           class="card mt-2 rounded-pill w-100"
-          transition:fly={{ y: 150, duration: 300 }}>
+          transition:fly={{ y: 150, duration: 300 }}
+        >
           <div class="card-body ">
             <!--Input form for adding new items-->
             <form class="form" on:submit|preventDefault={addItem}>
@@ -158,19 +161,20 @@
                     type="text"
                     bind:value={itemName}
                     autofocus
-                    placeholder="Add a new todo" />
+                    placeholder="Add a new todo"
+                  />
                 </div>
                 <div class="col-xs">
                   <button
                     type="submit"
-                    class="btn btn-success float-right rounded-circle">
+                    class="btn btn-success float-right rounded-circle"
+                  >
                     <Icon icon={faPlus} />
                   </button>
                 </div>
               </div>
             </form>
           </div>
-
         </div>
       </div>
       <!--List Todo Items-->
@@ -178,7 +182,8 @@
         <div class="row">
           <div
             class="card mt-4 rounded-pill w-100 h-100"
-            transition:fly={{ y: 150, duration: 300 }}>
+            transition:fly={{ y: 150, duration: 300 }}
+          >
             <div class="card-body ">
               <div class="row">
                 <div class="col" on:click={toggleComplete(todo.id)}>
@@ -191,7 +196,8 @@
                   <button
                     type="button"
                     class="btn btn-danger float-right rounded-circle"
-                    on:click={deleteItem(todo.id)}>
+                    on:click={deleteItem(todo.id)}
+                  >
                     <Icon icon={faTrash} />
                   </button>
                 </div>
@@ -208,5 +214,4 @@
       </div>
     {/await}
   </div>
-
 </div>
