@@ -34,7 +34,7 @@ stages:
         command: 'build'
         Dockerfile: 'api-spring/Dockerfile'
         tags: |
-          $(Build.BuildId) 
+          $(Build.BuildId)
           spring
         arguments: '--platform "linux/amd64,linux/arm64,linux/arm/v7"'
 
