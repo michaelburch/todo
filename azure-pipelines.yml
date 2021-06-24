@@ -21,12 +21,20 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Bash@3
+      displayName: Configure Docker buildx
       inputs:
         targetType: 'inline'
         script: |
-          # Write your commands here
-          ls
           docker run --rm --privileged tonistiigi/binfmt --install all
           docker buildx create --platform "linux/amd64,linux/arm64,linux/arm/v7" --use
-          docker buildx build  --platform "linux/amd64,linux/arm64,linux/arm/v7" ./api-spring -t $(Build.BuildId) -t spring
+          docker buildx install
+    - task: Docker@2
+      inputs:
+        repository: 'todo-api'
+        command: 'build'
+        Dockerfile: 'api-spring/Dockerfile'
+        tags: |
+          $(Build.BuildId) 
+          spring
+        arguments: '--platform "linux/amd64,linux/arm64,linux/arm/v7"'
 
