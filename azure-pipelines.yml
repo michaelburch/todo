@@ -26,5 +26,6 @@ stages:
         script: |
           # Write your commands here
           ls
+          docker buildx create --platform "linux/amd64,linux/arm64,linux/arm/v7" --use
           docker buildx build  --platform "linux/amd64,linux/arm64,linux/arm/v7" . -t $(Build.BuildId) -t spring
 
