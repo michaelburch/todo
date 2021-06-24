@@ -46,11 +46,11 @@ public class TodoItem {
         this.itemId = id;
     }
 
-    public void setComplete(boolean isComplete) {
+    public void setIsComplete(boolean isComplete) {
         this.isComplete = isComplete;
     }
 
-    public boolean getComplete() {
+    public boolean getIsComplete() {
         return isComplete;
     }
     @Override
@@ -65,7 +65,7 @@ public class TodoItem {
         return Objects.equals(this.getName(), group.getName())
                 && Objects.equals(this.getTenantId(), group.getTenantId())
                 && Objects.equals(this.getId(), group.getId())
-                && Objects.equals(this.getComplete(), group.getComplete());
+                && Objects.equals(this.getIsComplete(), group.getIsComplete());
     }
 
      
