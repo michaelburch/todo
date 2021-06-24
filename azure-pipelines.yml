@@ -26,6 +26,7 @@ stages:
         script: |
           # Write your commands here
           ls
+          docker run -it --rm --privileged tonistiigi/binfmt --install all
           docker buildx create --platform "linux/amd64,linux/arm64,linux/arm/v7" --use
           docker buildx build  --platform "linux/amd64,linux/arm64,linux/arm/v7" ./api-spring -t $(Build.BuildId) -t spring
 
