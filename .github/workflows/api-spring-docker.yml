@@ -6,6 +6,7 @@ on:
       - 'master'
     paths:
       - 'api-spring/**'
+      - '.github/workflows/api-spring-docker.yml'
   
 jobs:
 
