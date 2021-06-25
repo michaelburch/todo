@@ -30,4 +30,4 @@ jobs:
           context: ./app
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/todo:svelte
-          
+          args: --platform "linux/amd64,linux/arm64,linux/arm/v7"
