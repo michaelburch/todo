@@ -6,7 +6,6 @@ on:
       - 'master'
     paths:
       - 'app/**'
-      - '.github/workflows/app-svelte-docker.yml'
   
 jobs:
 
