@@ -1,5 +1,6 @@
 # todo App
 ---
+[![API-Spring Docker Image](https://github.com/michaelburch/todo/actions/workflows/api-spring-docker.yml/badge.svg?event=push)](https://github.com/michaelburch/todo/actions/workflows/api-spring-docker.yml)
 
 This is a minimal todo list application. 
 
