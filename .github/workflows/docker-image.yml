@@ -2,8 +2,11 @@ name: Docker Image CI
 
 on:
   push:
+    branches:
+      - 'master'
     paths:
       - 'api-spring/**'
+      - '.github/workflows/docker-image.yml'
   
 jobs:
 
