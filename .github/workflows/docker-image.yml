@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-      id: buildx
-    - name: Build the Docker image
-      run: docker build ./api-spring --file Dockerfile --tag my-image-name:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        id: buildx
+      - name: Build the Docker image
+        run: docker build ./api-spring --file Dockerfile --tag my-image-name:$(date +%s)
