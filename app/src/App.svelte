@@ -46,7 +46,7 @@
       uniqueId +
       ";" +
       expires +
-      ";sameSite=strict;secure;path=/";
+      ";sameSite=none;secure;path=/";
   }
 
   setCookie();
