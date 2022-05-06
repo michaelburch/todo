@@ -6,6 +6,7 @@ This is a minimal todo list application.
 
 ```
 /app - Frontend based on the default Svelte template
+/app-wc - Frontend based on web components
 /api - minimal dotnet core REST API
 /api-spring - the same API implemented in Java with spring boot
 /az-functions-python - the same API implemented in Python with Azure Functions
