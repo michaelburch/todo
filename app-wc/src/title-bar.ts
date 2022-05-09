@@ -20,7 +20,6 @@ const styles = css`
     padding:0;
     margin:0;
     background-color: #3c3b3b;   
-    
 } 
 .title {
   margin-top: auto;

@@ -6,15 +6,14 @@ import {
     css,
 } from "@microsoft/fast-element";
 import type { TextField } from "@fluentui/web-components";
-import { TitleBar } from "./title-bar";
-import { todoTextField } from "./todo-input";
-TitleBar
+
 const template = html<TodoForm>`
     <form @submit=${x => x.submitTodo()}>
     <fluent-card class="todo-item">
        <div class="label"> 
        <input class="input"
         :value=${x => x.name}
+        placeholder="Add a Todo"
         @input=${(x, c) => x.onDescriptionInput(c.event)}
         ></input>
         </div>
@@ -50,7 +49,7 @@ const styles = css`
       .label {
         flex:1;
         text-align: middle;
-        margin-left: 45px;
+        margin-left: auto;
         margin-right: 15px;
         padding: 0;
         margin-top:0;
@@ -70,6 +69,7 @@ const styles = css`
         background: none;
         color: white;
         outline: none;
+        margin-left: 1.5em;
       }
 `;
 

@@ -22,16 +22,18 @@ const infoLink = "https://www.michaelburch.net/"
 const githubLink = "https://github.com/michaelburch/todo"
 
 const template = html<TodoApp>`
-    <div class="container">
+    
     <title-bar titleText="Todo"
       infoLink=${infoLink}
       githubLink=${githubLink}  
     >
     </title-bar>
-   
+    <div class="container">
     <div class="list">
+    
     <todo-form @todo-submit=${(x, c) => x.addTodo(eventDetail(c))}></todo-form>
-
+    <div class="spinner-border ${(x) => x.loading ? "" : "hide"}">
+    </div>
     
         ${repeat(
             x => x.todos,
@@ -58,24 +60,24 @@ const template = html<TodoApp>`
 `;
 
 const styles = css`
-    ${typography} :host {
-        
+    ${typography} :host {      
         font-size:16px;
         color: ${neutralForegroundRest};
-
     }
     .container {
         height: 100%;
         width: 100%;
         background-color: #646464;
+        overflow-y: auto; 
+        
     }
     .list {
-
         align-items: center;
         margin: auto;
         width: 90%;
         padding: 1em;
         row-gap: 2em;
+        padding-bottom: 4em;
     }
     .todo-item {
         display:flex;
@@ -96,15 +98,34 @@ const styles = css`
       .label {
         flex:1;
         text-align: center;
-        margin-left: 1.8em;
+        margin-left: 2.8em;
         padding: 18px;
         margin-top:0;
         margin-bottom:0;
       }
-    
+    @keyframes spinner-border {
+       to {
+        transform: rotate(360deg); 
+       } 
+    }
+      
+    .spinner-border {
+        margin: auto;
+        width: 1rem;
+        height: 1rem;
+        vertical-align: text-bottom;
+        border: 0.25em solid #ddd;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border .75s linear infinite; 
+    }
+
 
     .complete {
         text-decoration: line-through;
+    }
+    .hide {
+        display: none;
     }
 `;
 
@@ -116,12 +137,15 @@ const styles = css`
 export class TodoApp extends FASTElement {
     @inject(TodoService) todoService!: TodoService;
     @observable todos: TodoItem[] = [];
+    @observable loading: boolean = false;
     connectedCallback() {
         super.connectedCallback();
         this.loadData();
       }
     async loadData() {
+        this.loading = true;
         this.todos = await this.todoService.getTodos();
+        this.loading = false;
       }
     public addTodo(name: string) {
         // Add the new item and then refresh data
