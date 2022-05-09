@@ -25,14 +25,9 @@ jobs:
       - name : npm build
         working-directory: ./app-wc
         run: npm run build --if-present
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
       - name: Upload to blob storage
         uses: azure/CLI@v1
         with:
           inlineScript: |
-              ls 
+              ls && az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }} -d '$web' -s ./app-wc/dist
       
