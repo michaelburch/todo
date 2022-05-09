@@ -1,6 +1,6 @@
 import { dom, library } from '@fortawesome/fontawesome-svg-core';
-import { fab, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { fas, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FASTElement, customElement, html, css, attr } from '@microsoft/fast-element';
 
 
@@ -61,7 +61,7 @@ export class TitleBar extends FASTElement {
   @attr githubLink = "#";
   constructor() {
      super();
-     library.add(fab, faGithub, fas, faInfoCircle);
+     library.add(faGithub, faInfoCircle);
 // @ts-ignore 
 dom.watch({
     autoReplaceSvgRoot: this.shadowRoot,

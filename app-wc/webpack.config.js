@@ -1,6 +1,8 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+const path = require('path');
 module.exports = function(env, { mode }) {
+  
   const fullyArmedAndOperational = mode === 'production';
   return {
     mode: fullyArmedAndOperational ? 'production' : 'development',
@@ -9,6 +11,7 @@ module.exports = function(env, { mode }) {
       app: ['./src/main.ts']
     },
     output: {
+      path: path.resolve(__dirname, './dist'),
       filename: 'dist/bundle.js'
     },
     resolve: {
@@ -26,6 +29,7 @@ module.exports = function(env, { mode }) {
     plugins: [
       new CleanWebpackPlugin()
     ],
+    
     module: {
       rules: [
         {

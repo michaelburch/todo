@@ -1,7 +1,6 @@
-import { observable } from "@microsoft/fast-element";
 import { Http } from "./http";
-import { TodoItem } from "../todo-item";
 import { Cookie } from "./cookie";
+import { TodoItem } from "../todo-item";
 import { DI } from '@microsoft/fast-foundation';
 const baseUrl: string = 'https://api.todo.trailworks.io/api/'
 

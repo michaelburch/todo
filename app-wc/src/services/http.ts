@@ -1,4 +1,3 @@
-import { xyzToLAB } from '@microsoft/fast-colors';
 import { DI } from '@microsoft/fast-foundation';
 import { TodoItem } from '../todo-item';
 import { Serializer } from './serializer';

@@ -4,10 +4,7 @@ import {
     SwatchRGB,
     fluentButton,
     fluentCard,
-    fluentCheckbox,
     fluentDesignSystemProvider,
-    fluentSlider,
-    fluentSliderLabel,
     fluentTextField,
     provideFluentDesignSystem,
 } from "@fluentui/web-components";
@@ -20,11 +17,9 @@ import { TodoForm } from "./todo-form";
 provideFluentDesignSystem().register(
     fluentDesignSystemProvider(),
     fluentButton(),
-    fluentCheckbox(),
     fluentTextField(),
     fluentCard(),
-    fluentSlider(),
-    fluentSliderLabel()
+
 );
 accentPalette.setValueFor(
  document.body,PaletteRGB.create(SwatchRGB.from(parseColorHexRGB

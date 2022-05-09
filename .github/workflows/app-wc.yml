@@ -9,8 +9,23 @@ on:
       - '.github/workflows/app-wc.yml'
   
 jobs:
-
   build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        working-directory: ./app-wc
+        run: npm ci
+      - name : npm build
+        working-directory: ./app-wc
+        run: npm run build --if-present
+  deploy:
 
     runs-on: ubuntu-latest
     
@@ -19,5 +34,5 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-              az storage blob upload-batch --account-name $STORAGE_ACCOUNT_NAME  --account-key $STORAGE_ACCOUNT_KEY -d '$web' -s ./app-wc
+              az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }} -d '$web' -s ./app-wc/dist
       
