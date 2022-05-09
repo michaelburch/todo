@@ -1,0 +1,23 @@
+name: App-Svelte Docker Image
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'app-wc/**'
+      - '.github/workflows/app-wc.yml'
+  
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Upload to blob storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+              az storage blob upload-batch --account-name $STORAGE_ACCOUNT_NAME  --account-key $STORAGE_ACCOUNT_KEY -d '$web' -s ./app-wc
+      

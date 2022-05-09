@@ -79,30 +79,7 @@ const styles = css`
         row-gap: 2em;
         padding-bottom: 4em;
     }
-    .todo-item {
-        display:flex;
-        width: 100%;
-        color: #ddd;
-        background-color: #3c3b3b; 
-        align-items: center;
-        padding: 0px;
-        border: 0;
-        height: 100%;
-        margin-bottom: .5em;
-      }
-      .button {
-        width: 30px;
-        margin:auto;
-        padding: 10px;
-      }
-      .label {
-        flex:1;
-        text-align: center;
-        margin-left: 2.8em;
-        padding: 18px;
-        margin-top:0;
-        margin-bottom:0;
-      }
+  
     @keyframes spinner-border {
        to {
         transform: rotate(360deg); 
@@ -119,8 +96,6 @@ const styles = css`
         border-radius: 50%;
         animation: spinner-border .75s linear infinite; 
     }
-
-
     .complete {
         text-decoration: line-through;
     }

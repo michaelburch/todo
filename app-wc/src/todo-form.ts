@@ -6,6 +6,7 @@ import {
     css,
 } from "@microsoft/fast-element";
 import type { TextField } from "@fluentui/web-components";
+import { typography } from "./typography";
 
 const template = html<TodoForm>`
     <form @submit=${x => x.submitTodo()}>
@@ -30,10 +31,8 @@ const template = html<TodoForm>`
 `;
 
 const styles = css`
+    ${typography}
     form {
-
-        height: 100%;
-        width: 100%;
         margin-bottom: .5em;
     }
     .todo-item {
@@ -48,18 +47,11 @@ const styles = css`
       }
       .label {
         flex:1;
-        text-align: middle;
+        text-align: center;
         margin-left: auto;
         margin-right: 15px;
-        padding: 0;
-        margin-top:0;
-        margin-bottom:0;
       }
-      .button {
-        width: 30px;
-        margin:auto;
-        padding: 10px;
-      }
+ 
       .input {
         height: 100%;
         width: 100%;
