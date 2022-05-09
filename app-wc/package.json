@@ -11,6 +11,7 @@
   },
   "author": "",
   "license": "ISC",
+  "optionalDependencies": { "fsevents": "2.1.2" },
   "dependencies": {
     "@fluentui/web-components": "latest",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
