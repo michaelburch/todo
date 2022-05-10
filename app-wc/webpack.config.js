@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 const path = require('path');
 module.exports = function(env, { mode }) {
@@ -27,7 +28,16 @@ module.exports = function(env, { mode }) {
       },
     },
     plugins: [
-      new CleanWebpackPlugin()
+      new CleanWebpackPlugin(),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: "index.html",
+            to: "index.html",
+            context: ".",
+          },
+        ],
+      }),
     ],
     
     module: {
@@ -40,7 +50,7 @@ module.exports = function(env, { mode }) {
             }
           ],
           exclude: /node_modules/
-        }
+        },
       ]
     }
   }
