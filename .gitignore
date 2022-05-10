@@ -15,6 +15,7 @@ BenchmarkDotNet.Artifacts/
 src/SignalR/clients/**/dist/
 modules/
 dist/
+out/
 .nuxt/
 
 # File extensions
