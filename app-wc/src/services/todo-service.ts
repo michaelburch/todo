@@ -2,6 +2,7 @@ import { Http } from "./http";
 import { Cookie } from "./cookie";
 import { TodoItem } from "../todo-item";
 import { DI } from '@microsoft/fast-foundation';
+import { plainToInstance } from 'class-transformer';
 const baseUrl: string = 'https://api.todo.trailworks.io/api/'
 
 
@@ -18,12 +19,7 @@ export class TodoServiceImpl {
   constructor(@Http private http: Http, @Cookie private cookie: Cookie) {}
   private uniqueId = this.cookie.getUniqueId();
   public async createTodo(name: string) {
-    let todo: TodoItem = { 
-      id: '',
-      tenantId: this.uniqueId,
-      name: name,
-      isComplete: false
-    };
+    let todo = new TodoItem(name);
 
     const response = await this.http.post<TodoItem>(`${baseUrl}${this.uniqueId}/todos`, todo)
     this.cache = null;
@@ -34,8 +30,7 @@ export class TodoServiceImpl {
       return this.cache;
     }
     const response = await this.http.get<TodoItem[]>(`${baseUrl}${this.uniqueId}/todos`);
-    
-    return this.cache = response;
+    return this.cache = plainToInstance(TodoItem,response);
   }
   public async deleteTodo(id: string) {
     const response = await this.http.delete(`${baseUrl}${this.uniqueId}/todos/${id}`)
