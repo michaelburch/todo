@@ -1,24 +1,23 @@
 import { DI } from '@microsoft/fast-foundation';
-import { TodoItem } from '../todo-item';
 import { Serializer } from './serializer';
 
 export interface Http {
-  post<T = any>(url: string, todo: TodoItem): Promise<Response>;
+  post<T = any>(url: string, data: T): Promise<Response>;
   get<T = any>(url: string): Promise<T>;
-  put<T = any>(url: string, todo: TodoItem): Promise<Response>;
+  put<T = any>(url: string, data: T): Promise<Response>;
   delete(url: string): Promise<Response>;
 }
 
 class HttpImpl implements Http {
   constructor(@Serializer private serializer: Serializer) {}
 
-  async post<T>(url: string, todo: T): Promise<Response> {
+  async post<T>(url: string, data: T): Promise<Response> {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
-      body: this.serializer.serialize(todo),
+      body: this.serializer.serialize(data),
     });
 
     return response
@@ -32,13 +31,13 @@ class HttpImpl implements Http {
     return this.serializer.deserialize<T>(response);
   }
 
-  async put<T>(url: string, todo: T): Promise<Response> {
+  async put<T>(url: string, data: T): Promise<Response> {
     const response = await fetch(url, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: this.serializer.serialize(todo),
+      body: this.serializer.serialize(data),
     });
 
     return response

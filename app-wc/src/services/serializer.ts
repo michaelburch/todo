@@ -1,16 +1,15 @@
 import { DI } from '@microsoft/fast-foundation';
 import 'reflect-metadata';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
-import { TodoItem } from '../todo-item';
+import { instanceToPlain } from 'class-transformer';
 
 export class JSONSerializer implements Serializer {
   public serialize(object: any): string {
     return JSON.stringify(instanceToPlain(object));
   }
 
-  public deserialize<T>(input: any) {
+  public deserialize<T>(input: any): Promise<T> {
     if (input && input.ok) {
-      return input.text().then((text: string) => plainToInstance(TodoItem,JSON.parse(text)) );
+      return input.text().then((text: string, ) => JSON.parse(text) );
     }
 
     return JSON.parse(input);
@@ -20,5 +19,5 @@ export class JSONSerializer implements Serializer {
 export const Serializer = DI.createInterface(x => x.singleton(JSONSerializer));
 export interface Serializer {
   serialize(object: any): string;
-  deserialize<T = any>(response: Response): Promise<T>;
+  deserialize<T>(response: Response): Promise<T>;
 }
