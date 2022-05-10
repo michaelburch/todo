@@ -12,7 +12,7 @@ module.exports = function(env, { mode }) {
       app: ['./src/main.ts']
     },
     output: {
-      path: path.resolve(__dirname, './dist'),
+      path: path.resolve(process.cwd(), 'out'),
       filename: 'dist/bundle.js'
     },
     resolve: {
@@ -28,7 +28,7 @@ module.exports = function(env, { mode }) {
       },
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({verbose: true, protectWebpackAssets: false}),
       new CopyPlugin({
         patterns: [
           {
