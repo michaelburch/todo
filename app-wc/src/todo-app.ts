@@ -3,7 +3,6 @@ import {
     FASTElement,
     html,
     css,
-    attr,
     repeat,
     observable,
     ExecutionContext,
@@ -13,7 +12,6 @@ import { TodoItem } from "./todo-item";
 import { typography } from "./typography";
 import { inject } from '@microsoft/fast-foundation';
 
-import { fillColor, neutralForegroundRest } from "@fluentui/web-components";
 
 function eventDetail<T = any>(ctx: ExecutionContext) {
     return (ctx.event as CustomEvent).detail as T;
@@ -39,6 +37,7 @@ const template = html<TodoApp>`
             x => x.todos,
             html<TodoItem, TodoApp>`
             <fluent-card class="todo-item">
+            <div class="button"> </div>
                     <div
                     class="${(x) => x.isComplete ? "label complete" : "label"}"
                         @click=${(x, c) => c.parent.toggleComplete(x) }
@@ -61,8 +60,7 @@ const template = html<TodoApp>`
 
 const styles = css`
     ${typography} :host {      
-        font-size:16px;
-        color: ${neutralForegroundRest};
+        
     }
     .container {
         height: 100%;

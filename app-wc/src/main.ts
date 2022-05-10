@@ -25,6 +25,7 @@ accentPalette.setValueFor(
  document.body,PaletteRGB.create(SwatchRGB.from(parseColorHexRGB
     ('#3f75a2')!))
 );
+TitleBar
+TodoForm
 TodoApp;
-TodoForm;
-TitleBar;
+
