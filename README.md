@@ -1,6 +1,7 @@
 # todo App
 ---
 [![API-Spring Docker Image](https://github.com/michaelburch/todo/actions/workflows/api-spring-docker.yml/badge.svg?event=push)](https://github.com/michaelburch/todo/actions/workflows/api-spring-docker.yml) [![App-Svelte Docker Image](https://github.com/michaelburch/todo/actions/workflows/app-svelte-docker.yml/badge.svg?event=push)](https://github.com/michaelburch/todo/actions/workflows/app-svelte-docker.yml)
+[![App Deploy](https://github.com/michaelburch/todo/actions/workflows/app-wc.yml/badge.svg?event=push)](https://todo.trailworks.io)
 
 This is a minimal todo list application. 
 
