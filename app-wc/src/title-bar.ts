@@ -9,8 +9,8 @@ const template = html<TitleBar>`
       <div class="title"><span><h3>${x => x.titleText}</h3></span></div>
       <div class="nav">
         <ul class="link-list ml-auto" >
-          <li><a href="${x => x.infoLink}" class="nav-link"><i class="fas fa-info-circle"></i></a></li>
-          <li><a href="${x => x.githubLink}" class="nav-link"><i class="fab fa-github"></i></a></li>
+          <li><a href="${x => x.infoLink}" class="nav-link"><i class="fas fa-info-circle" alt="Link to more information about this app" title="More Information"></i></a></li>
+          <li><a href="${x => x.githubLink}" class="nav-link"><i class="fab fa-github" alt="Link to source code on Github" title="Source Code"></i></a></li>
         </ul>
       </div>
     </div>
