@@ -5,13 +5,13 @@ import {
     customElement,
     css,
 } from "@microsoft/fast-element";
-import type { TextField } from "@fluentui/web-components";
-import { typography } from "./typography";
+import { TextField } from "@microsoft/fast-foundation";
+import { TodoCard } from "./todo-card";
 
+TodoCard
 const template = html<TodoForm>`
     <form @submit=${x => x.submitTodo()}>
-    <fluent-card class="todo-item">
-       <div class="button"> </div>
+    <todo-card>
        <div class="label"> 
        <input 
         :value=${x => x.name}
@@ -19,20 +19,24 @@ const template = html<TodoForm>`
         @input=${(x, c) => x.onDescriptionInput(c.event)}
         ></input>
         </div>
-        <div class="button">
-        <fluent-button
-            type="submit"
-            appearance="accent"
+        <button
+        type="submit"
             ?disabled=${x => !x.canSubmitTodo}
         > +
-        </fluent-button>
-        </div>
-    </fluent-card>
+        </button>
+    </todo-card>
     </form>
 `;
 
 const styles = css`
-    ${typography}
+    input {
+        font-size: 100%;
+        border: 0;
+        text-align: center;
+        background: none;
+        color: white;
+        outline: none;
+      }
 `;
 
 @customElement({
@@ -55,7 +59,7 @@ export class TodoForm extends FASTElement {
         }
     }
 
-    public onDescriptionInput(event: Event) {
+    public onDescriptionInput(event: Event) {    
         this.name = (event.target! as TextField).value;
     }
 }

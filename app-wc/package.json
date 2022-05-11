@@ -15,14 +15,11 @@
     "fsevents": "2.1.2"
   },
   "dependencies": {
-    "@fluentui/web-components": "latest",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@microsoft/fast-colors": "^5.0.12",
     "@microsoft/fast-element": "latest",
     "@microsoft/fast-foundation": "latest",
-    "@microsoft/fast-router": "^0.3.0",
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.11.1"

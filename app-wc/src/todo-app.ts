@@ -9,9 +9,7 @@ import {
 } from "@microsoft/fast-element";
 import { TodoService } from './services/todo-service';
 import { TodoItem } from "./todo-item";
-import { typography } from "./typography";
 import { inject } from '@microsoft/fast-foundation';
-
 
 function eventDetail<T = any>(ctx: ExecutionContext) {
     return (ctx.event as CustomEvent).detail as T;
@@ -36,21 +34,19 @@ const template = html<TodoApp>`
         ${repeat(
             x => x.todos,
             html<TodoItem, TodoApp>`
-            <fluent-card class="todo-item">
-            <div class="button"> </div>
-                    <div
-                    class="${(x) => x.isComplete ? "label complete" : "label"}"
-                        @click=${(x, c) => c.parent.toggleComplete(x) }
-                    >${x => x.name}</div>
-                    <div class="button">
-                    <fluent-button appearance="accent"
-                        @click=${(x, c) => c.parent.removeTodo(x)}
-                        aria-label="Remove item"
-                    >
-                        &times;
-                    </fluent-button>
-                    </div>
-                </fluent-card>
+            <todo-card>
+            <div 
+            class="label ${(x) => x.isComplete ? "complete" : ""}"
+                @click=${(x, c) => c.parent.toggleComplete(x) }
+            >${x => x.name}</div>
+            
+            <button 
+                @click=${(x, c) => c.parent.removeTodo(x)}
+                aria-label="Remove item"
+            >
+                &times;
+            </button>
+            </todo-card>
             `
         )}
     
@@ -59,9 +55,6 @@ const template = html<TodoApp>`
 `;
 
 const styles = css`
-    ${typography} :host {      
-        
-    }
     .container {
         height: 100%;
         width: 100%;
@@ -94,9 +87,7 @@ const styles = css`
         border-radius: 50%;
         animation: spinner-border .75s linear infinite; 
     }
-    .complete {
-        text-decoration: line-through;
-    }
+  
     .hide {
         display: none;
     }

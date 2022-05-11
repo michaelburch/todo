@@ -14,7 +14,7 @@ export class TodoItem {
     constructor(name: string) {
         this.name = name;
     }
-    public toggleComplete?() {
+    public toggleComplete() {
         this.isComplete = !this.isComplete;
     }
   
