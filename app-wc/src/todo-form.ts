@@ -6,9 +6,7 @@ import {
     css,
 } from "@microsoft/fast-element";
 import { TextField } from "@microsoft/fast-foundation";
-import { TodoCard } from "./todo-card";
 
-TodoCard
 const template = html<TodoForm>`
     <form @submit=${x => x.submitTodo()}>
     <todo-card>
