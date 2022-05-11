@@ -34,6 +34,7 @@ const styles = css`
         background: none;
         color: white;
         outline: none;
+        width: 100%;
       }
 `;
 
