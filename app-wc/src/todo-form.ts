@@ -32,7 +32,7 @@ const styles = css`
         border: 0;
         text-align: center;
         background: none;
-        color: white;
+        color: var(--font-color);
         outline: none;
         width: 100%;
       }

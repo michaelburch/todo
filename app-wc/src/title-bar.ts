@@ -19,14 +19,16 @@ const template = html<TitleBar>`
 const styles = css`
 .navbar {
     display: flex ;
-    background-color: #3c3b3b;   
+    background-color: var(--fill-color);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 calc(4 * 0.5px) calc((4 * 1px)) rgba(0, 0, 0, 0.14);
+    border: 1px solid var(--border-color);   
 } 
 .title {
   margin-top: auto;
   margin-bottom: auto;
   flex: 1;
   text-align: center;
-  color: #ddd;
+  color: var(--font-color);
 }
 .ml-auto {
   margin-left: auto;
@@ -46,7 +48,7 @@ const styles = css`
 }
 .nav-link { 
   padding: 0.3rem 1.2rem 0 0 ;
-  color: #ddd;
+  color: var(--font-color);
 }
 `;
 

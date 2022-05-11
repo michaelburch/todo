@@ -58,9 +58,8 @@ const styles = css`
     .container {
         height: 100%;
         width: 100%;
-        background-color: #646464;
+        background-color: var(--bg-color);
         overflow-y: auto; 
-        
     }
     .list {
         align-items: center;
@@ -82,7 +81,7 @@ const styles = css`
         width: 1rem;
         height: 1rem;
         vertical-align: text-bottom;
-        border: 0.25em solid #ddd;
+        border: 0.25em solid var(--font-color);
         border-right-color: transparent;
         border-radius: 50%;
         animation: spinner-border .75s linear infinite; 

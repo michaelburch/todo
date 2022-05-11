@@ -9,14 +9,29 @@
         <title>Todo</title>
         <style>
             html, body {
+              --bg-color: #646464;
+              --fill-color: #3c3b3b;
+              --font-color: #ddd;
+              --border-color: #3c3b3b;
+              --accent-color: #3f75a2;
+              --accent-border-color: #3f75a2;
+              --accent-font-color: #ddd;
               width: 100%;
               min-width:min-content;
               height: 100%;
               margin: calc(env(safe-area-inset-top)/3) env(safe-area-inset-right) 0 0;
-              background-color: #3c3b3b;
               position: fixed;
             }
-      
+            @media (prefers-color-scheme: light) {
+              html, body {
+              --bg-color: #f4f4f4;
+              --fill-color: #fff;
+              --accent-color: #3f75a2;
+              --accent-border-color: #3f75a2;
+              --font-color: #3c3b3b;
+              --border-color: #3c3b3b;
+            }
+           }
             :not(:defined) {
                 visibility: hidden;
             }
