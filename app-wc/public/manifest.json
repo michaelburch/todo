@@ -4,11 +4,11 @@
     "name": "Todo",
     "display": "standalone",
     "start_url": "/",
-    "short_name": "starter",
+    "short_name": "Todo",
     "theme_color": "#E1477E",
     "description": "This is a To do list app",
     "orientation": "any",
-    "background_color": "#E1477E",
+    "background_color": "#3c3b3b",
     "related_applications": [],
     "prefer_related_applications": false,
     "icons": [

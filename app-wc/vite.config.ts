@@ -23,9 +23,9 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({url}) => url.origin === 'https://api.todo.trailworks.io',
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'unpkg-libs-cache',
+              cacheName: 'api-cache',
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
