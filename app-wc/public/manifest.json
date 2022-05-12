@@ -5,10 +5,10 @@
     "display": "standalone",
     "start_url": "/",
     "short_name": "Todo",
-    "theme_color": "#E1477E",
+    "theme_color": "#3c3b3b",
     "description": "This is a To do list app",
     "orientation": "any",
-    "background_color": "#3c3b3b",
+    "background_color": "#3f75a2",
     "related_applications": [],
     "prefer_related_applications": false,
     "icons": [
