@@ -3,9 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
+    "dev-task": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "start": "npm run build && vite preview",
+    "start-remote": "vite --host"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -16,11 +18,15 @@
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.1.13",
     "tslib": "^1.11.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "workbox-build": "latest",
+    "workbox-core": "latest",
+    "workbox-precaching": "latest"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
-    "typescript": "^4.5.4",
-    "vite": "^2.9.9"
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9",
+    "vite-plugin-pwa": "^0.12.0"
   }
 }

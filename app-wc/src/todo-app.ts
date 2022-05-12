@@ -10,7 +10,7 @@ import {
 import { TodoService } from './services/todo-service';
 import { TodoItem } from "./todo-item";
 import { inject } from '@microsoft/fast-foundation';
-
+import { registerSW } from 'virtual:pwa-register';
 function eventDetail<T = any>(ctx: ExecutionContext) {
     return (ctx.event as CustomEvent).detail as T;
 }
@@ -103,6 +103,7 @@ export class TodoApp extends FASTElement {
     @observable declare loading: boolean;
     connectedCallback() {
         super.connectedCallback();
+        registerSW({ immediate: true });
         this.loadData();
       }
     async loadData() {
