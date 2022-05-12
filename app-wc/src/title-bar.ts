@@ -8,7 +8,7 @@ const template = html<TitleBar>`
       <div class="nav"></div>
       <div class="title"><span><h3>${x => x.titleText}</h3></span></div>
       <div class="nav">
-        <ul class="link-list ml-auto" >
+        <ul class="link-list" >
           <li><a href="${x => x.infoLink}" class="nav-link"><i class="fas fa-info-circle" alt="Link to more information about this app" title="More Information"></i></a></li>
           <li><a href="${x => x.githubLink}" class="nav-link"><i class="fab fa-github" alt="Link to source code on Github" title="Source Code"></i></a></li>
         </ul>
@@ -21,7 +21,7 @@ const styles = css`
     display: flex ;
     background-color: var(--fill-color);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 calc(4 * 0.5px) calc((4 * 1px)) rgba(0, 0, 0, 0.14);
-    border: 1px solid var(--border-color);   
+    border-bottom: 1px solid var(--border-color);   
 } 
 .title {
   margin-top: auto;
@@ -29,25 +29,24 @@ const styles = css`
   flex: 1;
   text-align: center;
   color: var(--font-color);
-}
-.ml-auto {
-  margin-left: auto;
+  //border-right: 1px solid var(--border-color);
 }
 .nav {
-    display: flex;
-    flex: 33%;
+    display: inline;
+    width: 7rem;
     margin-top: auto;
     margin-bottom: auto;
+    margin-right: 1rem;
+    margin-left: -1.5rem;
 }
 .link-list {
   display: flex;
   list-style: none;
   column-gap: 1rem;
-  margin-right: 1rem;
-   
+  justify-content: center; 
 }
 .nav-link { 
-  padding: 0.3rem 1.2rem 0 0 ;
+  padding: 0 1.2rem 0 0 ;
   color: var(--font-color);
 }
 `;
