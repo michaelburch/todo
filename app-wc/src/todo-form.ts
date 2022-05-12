@@ -29,6 +29,7 @@ const template = html<TodoForm>`
 const styles = css`
     input {
         font-size: 100%;
+        font-family: var(--font-family);
         border: 0;
         text-align: center;
         background: none;
