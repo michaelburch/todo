@@ -23,7 +23,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({url}) => url.origin === 'https://api.todo.trailworks.io',
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
               expiration: {
