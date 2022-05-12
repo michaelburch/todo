@@ -36,8 +36,8 @@ const styles = css`
     width: 7rem;
     margin-top: auto;
     margin-bottom: auto;
-    margin-right: 1rem;
-    margin-left: -1.5rem;
+    margin-right: .6rem;
+    margin-left: auto;
 }
 .link-list {
   display: flex;
