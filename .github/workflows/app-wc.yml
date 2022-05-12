@@ -29,6 +29,6 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-              az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }} -d '$web' -s ./app-wc/out --overwrite
+              az storage blob upload-batch --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }} --account-key ${{ secrets.STORAGE_ACCOUNT_KEY }} -d '$web' -s ./app-wc/dist --overwrite
 
       
