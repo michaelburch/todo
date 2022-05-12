@@ -10,7 +10,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "outDir": "dist/build",
     "experimentalDecorators": true,
     "noEmit": true,
     "noUnusedLocals": true,
