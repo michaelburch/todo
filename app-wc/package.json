@@ -15,7 +15,8 @@
     "@microsoft/fast-foundation": "latest",
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.1.13",
-    "tslib": "^1.11.1"
+    "tslib": "^1.11.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.4",
