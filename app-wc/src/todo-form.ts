@@ -44,8 +44,11 @@ const styles = css`
     styles,
 })
 export class TodoForm extends FASTElement {
-    @observable public name: string = "";
-
+    @observable declare public name: string;
+    constructor() {
+        super()
+        this.name = "";
+    }
     get canSubmitTodo() {
         return !!this.name;
     }

@@ -7,20 +7,21 @@ const baseUrl: string = 'https://api.todo.trailworks.io/api/'
 
 
 export interface TodoService {
-  createTodo(name: string)
-  toggleComplete(todo: TodoItem)
-  getTodos(): TodoItem[] 
-  deleteTodo(id: string)
+  createTodo(name: string) : Promise<void>
+  toggleComplete(todo: TodoItem) : Promise<void>
+  getTodos(): Promise<TodoItem[]> 
+  deleteTodo(id: string) : Promise<void>
 }
 
-export class TodoServiceImpl {
+export class TodoServiceImpl implements TodoService{
   private cache: TodoItem[] | null = null;
-
-  constructor(@Http private http: Http, @Cookie private cookie: Cookie) {}
-  private uniqueId = this.cookie.getUniqueId();
+  private uniqueId: string = "";
+  constructor(@Http private http: Http, @Cookie private cookie: Cookie) {
+    this.uniqueId = this.cookie.getUniqueId();
+  }
+  
   public async createTodo(name: string) {
     let todo = new TodoItem(name);
-
     const response = await this.http.post<TodoItem>(`${baseUrl}${this.uniqueId}/todos`, todo)
     this.cache = null;
     console.log(response);

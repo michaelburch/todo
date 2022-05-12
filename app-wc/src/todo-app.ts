@@ -98,9 +98,9 @@ const styles = css`
     styles,
 })
 export class TodoApp extends FASTElement {
-    @inject(TodoService) todoService!: TodoService;
-    @observable todos: TodoItem[] = [];
-    @observable loading: boolean = false;
+    @inject(TodoService) declare todoService: TodoService;
+    @observable declare todos: TodoItem[];
+    @observable declare loading: boolean;
     connectedCallback() {
         super.connectedCallback();
         this.loadData();
@@ -108,6 +108,7 @@ export class TodoApp extends FASTElement {
     async loadData() {
         this.loading = true;
         this.todos = await this.todoService.getTodos();
+        console.log(this.todos)
         this.loading = false;
       }
     public addTodo(name: string) {

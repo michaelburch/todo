@@ -58,9 +58,9 @@ const styles = css`
   styles
 })
 export class TitleBar extends FASTElement {
-  @attr titleText = "";
-  @attr infoLink = "#";
-  @attr githubLink = "#";
+  @attr declare titleText: string;
+  @attr declare infoLink: string;
+  @attr declare githubLink: string;
   constructor() {
      super();
      library.add(faGithub, faInfoCircle);

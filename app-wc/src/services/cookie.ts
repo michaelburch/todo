@@ -1,8 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { DI } from '@microsoft/fast-foundation';
-export interface Cookie {
-    getUniqueId(): string;
-  }
+
   
 class CookieImpl implements Cookie {
     constructor() {}
@@ -41,6 +39,8 @@ class CookieImpl implements Cookie {
          return cookieVal;
       } 
 }
-export const Cookie = DI.createInterface<Cookie>(
-    x => x.singleton(CookieImpl)
-  );
+export const Cookie = DI.createInterface<Cookie>(x => x.singleton(CookieImpl));
+
+export interface Cookie {
+    getUniqueId(): string;
+  }

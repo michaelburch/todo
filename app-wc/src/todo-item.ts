@@ -10,7 +10,7 @@ export class TodoItem {
     @Expose()
     @observable name: string = "";
     @Expose()
-    @observable isComplete: boolean = false;
+    @observable declare isComplete: boolean;
     constructor(name: string) {
         this.name = name;
     }
