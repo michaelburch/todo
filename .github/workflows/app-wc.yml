@@ -21,7 +21,7 @@ jobs:
           node-version: '17.x'
       - name: Install dependencies
         working-directory: ./app-wc
-        run: npm install --save-dev @types/uuid && npm ci
+        run: npm ci
       - name : npm build
         working-directory: ./app-wc
         run: npm run build --if-present
