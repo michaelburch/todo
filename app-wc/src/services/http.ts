@@ -14,6 +14,7 @@ class HttpImpl implements Http {
   async post<T>(url: string, data: T): Promise<Response> {
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'same-origin',
       headers: {
         "Content-Type": "application/json",
       },
@@ -25,6 +26,7 @@ class HttpImpl implements Http {
 
   async get<T>(url: string): Promise<T> {
     const response = await fetch(url, {
+      credentials: 'same-origin',
       method: 'GET'
     });
 
