@@ -3,7 +3,7 @@ import { Cookie } from "./cookie";
 import { TodoItem } from "../todo-item";
 import { DI } from '@microsoft/fast-foundation';
 import { plainToInstance } from 'class-transformer';
-const baseUrl: string = 'https://api.todo.trailworks.io/api/'
+const baseUrl: string = 'https://api.todo.trailworks.io/api/v1/'
 
 
 export interface TodoService {
