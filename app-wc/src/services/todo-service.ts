@@ -1,9 +1,8 @@
 import { Http } from "./http";
-import { Cookie } from "./cookie";
 import { TodoItem } from "../todo-item";
 import { DI } from '@microsoft/fast-foundation';
 import { plainToInstance } from 'class-transformer';
-const baseUrl: string = 'https://api.todo.trailworks.io/api/v1/'
+const baseUrl: string = 'https://api.todo.trailworks.io/v1'
 
 
 export interface TodoService {
@@ -15,14 +14,11 @@ export interface TodoService {
 
 export class TodoServiceImpl implements TodoService{
   private cache: TodoItem[] | null = null;
-  private uniqueId: string = "";
-  constructor(@Http private http: Http, @Cookie private cookie: Cookie) {
-    this.uniqueId = this.cookie.getUniqueId();
-  }
+  constructor(@Http private http: Http) {}
   
   public async createTodo(name: string) {
     let todo = new TodoItem(name);
-    const response = await this.http.post<TodoItem>(`${baseUrl}${this.uniqueId}/todos`, todo)
+    const response = await this.http.post<TodoItem>(`${baseUrl}/todos`, todo)
     this.cache = null;
     console.log(response);
   }
@@ -30,16 +26,16 @@ export class TodoServiceImpl implements TodoService{
     if (this.cache !== null) {
       return this.cache;
     }
-    const response = await this.http.get<TodoItem[]>(`${baseUrl}${this.uniqueId}/todos`);
+    const response = await this.http.get<TodoItem[]>(`${baseUrl}/todos`);
     return this.cache = plainToInstance(TodoItem,response);
   }
   public async deleteTodo(id: string) {
-    const response = await this.http.delete(`${baseUrl}${this.uniqueId}/todos/${id}`)
+    const response = await this.http.delete(`${baseUrl}/todos/${id}`)
     console.log(response);
   }
   public async toggleComplete(todo: TodoItem) {
     todo.toggleComplete!();
-    const response = await this.http.put<TodoItem>(`${baseUrl}${this.uniqueId}/todos/${todo.id}`, todo)
+    const response = await this.http.put<TodoItem>(`${baseUrl}/todos/${todo.id}`, todo)
     console.log(response);
   }
 
