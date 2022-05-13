@@ -1,12 +1,25 @@
 import logging
-from ..shared_code import TodoItem
+from ..shared_code import TodoItem, CookieJar
 import azure.functions as func
 
 
 def main(req: func.HttpRequest, doc: func.Out[func.Document]) -> func.HttpResponse:
     logging.info('Creating new todo item')
     # Read tenantId from route param
-    tenantId = req.route_params.get('tenantId')
+    #tenantId = req.route_params.get('tenantId')
+    try:
+        # Read cookie
+        logging.info('reading cookie')
+        #domain = req.url.split('/')[2].split(':')[0]
+        domain = "todo.trailworks.io"
+        tenantId = CookieJar.validate(domain, req.headers['Cookie'])
+    except Exception as inst:
+        logging.info(inst)
+        return func.HttpResponse(
+                body=f"Invalid authorization",
+                status_code=401
+            )
+
     try:
         # Create item using JSON from request body
         req_body = req.get_json()

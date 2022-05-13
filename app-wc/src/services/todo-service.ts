@@ -14,7 +14,7 @@ export interface TodoService {
 
 export class TodoServiceImpl implements TodoService{
   private cache: TodoItem[] | null = null;
-  constructor(@Http private http: Http) {}
+  constructor(@Http private http: Http) { http.setCredentialMode("include") }
   
   public async createTodo(name: string) {
     let todo = new TodoItem(name);

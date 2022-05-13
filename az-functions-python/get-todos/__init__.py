@@ -2,19 +2,32 @@ import logging
 import json
 import os
 import azure.functions as func
-from ..shared_code import TodoItem
+from ..shared_code import TodoItem, CookieJar
 from azure.cosmos import exceptions, CosmosClient, PartitionKey
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Listing todo items')
     headers = {"Content-Type": "application/json"}
     try:
+        # Read cookie
+        logging.info('reading cookie')
+        #domain = req.url.split('/')[2].split(':')[0]
+        domain = "todo.trailworks.io"
+        tenantId = CookieJar.validate(domain, req.headers['Cookie'])
+    except Exception as inst:
+        # Cookie failure, set new
+        logging.info('no cookie found, setting new')
+        cookie = CookieJar.new(domain)
+        headers = {"Content-Type": "application/json"}
+        headers.update(cookie["header"])
+        tenantId = cookie['value']
+    try:
+        # Read tenantId from route param
+        #tenantId = req.route_params.get('tenantId')
+        logging.info(f'tenant {tenantId} ')
         # Read client settings from environment
         database_name = os.environ['DB_NAME']
         collection_name = os.environ['COLLECTION_NAME']
-        # Read tenantId from route param
-        tenantId = req.route_params.get('tenantId')
-        logging.info(f'tenant {tenantId} ')
         # Create an empty documentlist
         todos = func.DocumentList()
         # Create database and collection if not already existing
@@ -42,5 +55,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     except Exception as inst:
         return func.HttpResponse(
                 body=f"error {inst}",
+                headers=headers,
                 status_code=500
             )

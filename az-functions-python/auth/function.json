@@ -9,7 +9,7 @@
       "methods": [
         "get"
       ],
-      "route": "todos/"
+      "route": "v1/auth"
     },
     {
       "type": "http",

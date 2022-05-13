@@ -9,7 +9,7 @@
       "methods": [
         "post"
       ],
-      "route": "{tenantId}/todos/"
+      "route": "todos/"
     },
     {
       "type": "cosmosDB",
