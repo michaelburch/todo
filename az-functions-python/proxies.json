@@ -4,7 +4,7 @@
 
       "get-proxy": {
           "matchCondition": {
-              "methods": [ "GET" ],
+              "methods": [ "GET","POST" ],
               "route": "/v1/todos"
           },
           "backendUri": "https://michael-todo.azurewebsites.net/todos",
@@ -24,10 +24,10 @@
       },
       "put-proxy": {
         "matchCondition": {
-            "methods": [ "PUT" ],
+            "methods": [ "PUT", "DELETE" ],
             "route": "/v1/todos/{todoId}"
         },
-        "backendUri": "https://michael-todo.azurewebsites.net/{tenantId}/todos/{todoId}",
+        "backendUri": "https://michael-todo.azurewebsites.net/todos/{todoId}",
         "requestOverrides": {
             "backend.request.headers.x-functions-key": "%APPLICATION_KEY%"
         },
@@ -41,26 +41,6 @@
           "response.headers.Access-Control-Allow-Origin": "https://todo.trailworks.io",
           "response.headers.Permissions-Policy": "geolocation=(), microphone=()" 
         }
-    },
-    "put-proxy": {
-      "matchCondition": {
-          "methods": [ "POST" ],
-          "route": "/v1/todos"
-      },
-      "backendUri": "https://michael-todo.azurewebsites.net/todos",
-      "requestOverrides": {
-          "backend.request.headers.x-functions-key": "%APPLICATION_KEY%"
-      },
-      "responseOverrides": {
-        "response.headers.Content-Security-Policy": "default-src 'self'; script-src 'self'",
-        "response.headers.Referrer-Policy": "no-referrer",
-        "response.headers.Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
-        "response.headers.X-Xss-Protection": "1; mode=block",
-        "response.headers.X-Frame-Options": "SAMEORIGIN",
-        "response.headers.X-Content-Type-Options": "nosniff",
-        "response.headers.Access-Control-Allow-Origin": "https://todo.trailworks.io",
-        "response.headers.Permissions-Policy": "geolocation=(), microphone=()" 
-      }
-  }
+    }
   }
 }

@@ -1,9 +1,21 @@
 import logging
-from ..shared_code import TodoItem
+from ..shared_code import TodoItem, CookieJar
 import azure.functions as func
 
 
 def main(req: func.HttpRequest, outdoc: func.Out[func.Document], todoItems: func.DocumentList ) -> func.HttpResponse:
+    try:
+        # Read cookie
+        logging.info('reading cookie')
+        #domain = req.url.split('/')[2].split(':')[0]
+        domain = "todo.trailworks.io"
+        tenantId = CookieJar.validate(domain, req.headers['Cookie'])
+    except Exception as inst:
+        logging.info(inst)
+        return func.HttpResponse(
+                body=f"Invalid authorization",
+                status_code=401
+            )
     # Read itemId from route param
     itemId = req.route_params.get('itemId')
     # If item doesn't exist, return error
@@ -19,6 +31,7 @@ def main(req: func.HttpRequest, outdoc: func.Out[func.Document], todoItems: func
             todoItems[0] = TodoItem.from_json(req_body)
             # Ensure that itemId in JSON matches route param
             todoItems[0]['id'] = itemId
+            todoItems[0]['tenantId'] = tenantId
             # Write updated item to Cosmos
             outdoc.set(func.Document.from_dict(todoItems[0]))
         # Return errors

@@ -7,7 +7,7 @@ class CookieJar(dict):
         dict.__init__(self, header=header, value=value)
 
 
-def new(domain, cookieValue=str(uuid.uuid4()), expiration=12 * 30 * 24 * 60 * 60, sameSite='Strict'):
+def new(domain, cookieValue=str(uuid.uuid4()), expiration=3 * 30 * 24 * 60 * 60, sameSite='Strict'):
     # Create cookie, defaulting to 1 yr expiration
     newCookie = SimpleCookie()
     newCookie[domain] = cookieValue

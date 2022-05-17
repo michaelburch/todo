@@ -2,26 +2,16 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
-      "authLevel": "anonymous",
+      "authLevel": "function",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
         "delete"
       ],
-      "route": "{tenantId}/todos/{itemId}"
+      "route": "todos/{itemId}"
     },
-    {
-      "type": "cosmosDB",
-      "direction": "in",
-      "name": "todoItems",
-      "databaseName": "%DB_NAME%",
-      "collectionName": "%COLLECTION_NAME%",
-      "Id": "{itemId}",
-      "PartitionKey": "{tenantId}",
-      "connectionStringSetting": "DB_CSTR",
-      "createIfNotExists": "true"
-    },
+
     {
       "type": "http",
       "direction": "out",
